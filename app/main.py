@@ -10,6 +10,13 @@ NotePatch
 from typing import List
 app = FastAPI()
 
+# Dependency Injection
+# from app.db.config import engine, get_db, get_async_session
+# from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+# from fastapi import Depends
+# @app.post("/notes", response_model=Note)
+# async def create_note(note: NoteCreate, session: AsyncSession = Depends(get_db)):
+#     return await notes_services.create_note(note)
 
 @app.post("/notes")
 async def create_note(note: NoteCreate) -> Note:
@@ -28,12 +35,12 @@ async def get_all_notes() -> List[Note]:
 
 @app.put("/note/{note_id}")
 async def update_note(note_id: int, note: NoteUpdate) -> Note:
-    note = await notes_services.update_note(note_id, note.title, note.content)
+    note = await notes_services.update_note(note_id, note)
     return note
 
 @app.patch("/note/{note_id}")
 async def patch_note(note_id: int, note: NotePatch):
-    note = await notes_services.patch_note(note_id, note.title, note.content)
+    note = await notes_services.patch_note(note_id, note)
     return note
 
 @app.delete("/note/{note_id}")

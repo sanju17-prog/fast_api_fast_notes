@@ -12,8 +12,8 @@ class NoteUpdate(NoteBase):
     pass
 
 class NotePatch(BaseModel):
-    title: Optional[str] = None
-    content: Optional[str] = None
+    title: str = None
+    content: str = None
 
 class Note(NoteBase):
     id: int

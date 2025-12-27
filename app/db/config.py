@@ -9,3 +9,7 @@ SYNC_DATABASE_URL = f"sqlite:///{DB_PATH}"
 
 engine = create_async_engine(ASYNC_DATABASE_URL, echo=True)
 async_session = async_sessionmaker(bind=engine, expire_on_commit=False)
+
+async def get_db():
+    async with async_session() as session:
+        yield session
